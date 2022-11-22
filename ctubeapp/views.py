@@ -38,7 +38,7 @@ class LogoutView(LogoutView):
 
 #初期画面。各画面に遷移するテスト用
 def shokifunction(request):
-    return render(request, 'demo/shokigamen.html')
+    return render(request, 'j4design/shokigamen.html')
 #クラスベースのログイン画面.予め用意されたものを継承して使用
 @method_decorator(csrf_exempt, name='dispatch')
 class Login(LoginView): 

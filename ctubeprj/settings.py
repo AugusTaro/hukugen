@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'r)!66t=j6@zy*r+gwbrk=zih+xc7z_gc!lfcc5!)o-b=m*+#se'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -127,7 +127,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 
 # ログイン後index.htmlにリダイレクト
-LOGIN_URL = 'login'
+LOGIN_URL = 'login_j'
 LOGIN_REDIRECT_URL='/shokifunction'
 LOGOUT_RECIRECT_URL='shokifunction'
 

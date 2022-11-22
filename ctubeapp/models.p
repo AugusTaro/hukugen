@@ -1,7 +1,3 @@
-from distutils.command.upload import upload
-from re import U
-from sre_constants import CATEGORY_UNI_LINEBREAK
-from tkinter import CASCADE
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
@@ -30,7 +26,7 @@ class category(models.Model):
         (4,"カテゴリー４")
     )
     group_ID  = models.ForeignKey(user_expansions,on_delete=models.CASCADE,db_column='group_ID', to_field='group_ID')#ユーザーに持たれる多側。カテゴリ数分だけ同名のGIDが存在。
-    category_ID     = models.IntegerField(choices=CATEGORY)#ユニークであり、カテゴリに属する多数のビデオを持つ
+    category_ID     = models.IntegerField(unique=True, )#ユニークであり、カテゴリに属する多数のビデオを持つ
     category_info     = models.CharField(max_length=200)#カテゴリの情報を保持
     category_rank     = models.IntegerField(default=1)
     def __str__(self):
@@ -39,7 +35,7 @@ class category(models.Model):
 class video(models.Model):
 
     group_ID  = models.ForeignKey(user_expansions,on_delete=models.CASCADE,to_field='group_ID', null=True)
-    category_ID= models.ForeignKey(category, on_delete=models.CASCADE, null=True)#カテゴリ情報にアクセス
+    category_ID= models.ForeignKey(category, on_delete=models.CASCADE, to_field='category_ID',null=True)#カテゴリ情報にアクセス
     title      = models.CharField(max_length=50)
     video_info = models.CharField(max_length=200)
     video_URL  = models.URLField(null=True)
@@ -48,9 +44,3 @@ class video(models.Model):
     is_active = models.BooleanField(default=True, help_text='アクティブならTrue')
     def __str__(self):
         return self.title
-
-
-class image(models.Model):
-    video = models.OneToOneField(video, on_delete=models.CASCADE)
-    thumbnail = models.ImageField(upload_to='thumbnails', )
-    
